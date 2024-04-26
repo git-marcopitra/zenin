@@ -7,7 +7,11 @@ import { BlockViewPanelProps } from './block-view.types';
 const MotionDiv = motion(Div);
 
 const BlockViewPanel: FC<BlockViewPanelProps> = ({ constraintsRef }) => (
-  <MotionDiv flex="1" ref={constraintsRef}></MotionDiv>
+  <MotionDiv
+    flex="1"
+    ref={constraintsRef}
+    backgroundImage="url('/img/block-bg.png')"
+  ></MotionDiv>
 );
 
 export default BlockViewPanel;

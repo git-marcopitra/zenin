@@ -13,7 +13,8 @@ const HeaderView: FC = () => {
 
   return (
     <Header
-      p="2rem"
+      px="2rem"
+      py="1.5rem"
       display="flex"
       alignItems="center"
       justifyContent="space-between"
