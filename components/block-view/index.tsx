@@ -10,15 +10,9 @@ const BlockView: FC = () => {
   const constraintsRef = useRef(null);
 
   return (
-    <Main
-      display="grid"
-      height="100vh"
-      overflow="hidden"
-      maxHeight="100vh"
-      gridTemplateColumns="20rem 1fr 20rem"
-    >
+    <Main display="flex" height="100vh" overflow="hidden" maxHeight="100vh">
       <BlockViewItems />
-      <Section display="flex" flexDirection="column">
+      <Section display="flex" flexDirection="column" flex="1">
         <HeaderView />
         <BlockViewPanel constraintsRef={constraintsRef} />
       </Section>

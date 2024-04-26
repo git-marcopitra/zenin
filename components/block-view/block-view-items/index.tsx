@@ -10,7 +10,7 @@ import BlockViewItemsSearch from './block-view-items-search';
 import BlockViewItemsTitle from './block-view-items-title';
 
 const BlockViewItems: FC = () => (
-  <SideView>
+  <SideView side="left">
     <SideViewLogo />
     <Div px="2rem" mb="2rem">
       <BlockViewItemsTitle />
