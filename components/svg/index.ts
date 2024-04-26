@@ -1,4 +1,5 @@
 export { default as CodeSVG } from './code';
+export { default as LogoSVG } from './logo';
 export { default as MinusSVG } from './minus';
 export { default as PieceSVG } from './piece';
 export { default as PlusSVG } from './plus';
