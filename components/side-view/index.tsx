@@ -1,30 +1,85 @@
-import { Aside, Div } from '@stylin.js/elements';
-import { FC, PropsWithChildren } from 'react';
+import { Aside, AsideElementProps, Div } from '@stylin.js/elements';
+import {
+  FC,
+  PropsWithChildren,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 
 import { SideViewProps } from './side-view.types';
 
 const SideView: FC<PropsWithChildren<SideViewProps>> = ({ side, children }) => {
+  const sidebarRef = useRef<AsideElementProps>(null);
+  const [isResizing, setIsResizing] = useState(false);
+  const [sidebarWidth, setSidebarWidth] = useState(268);
+
+  const startResizing = useCallback(() => setIsResizing(true), []);
+
+  const stopResizing = useCallback(() => setIsResizing(false), []);
+
+  const resize = useCallback(
+    (mouseMoveEvent: MouseEvent) => {
+      if (!isResizing || !sidebarRef.current) return;
+
+      setSidebarWidth(
+        side === 'left'
+          ? mouseMoveEvent.clientX -
+              (sidebarRef.current as HTMLDivElement).getBoundingClientRect()
+                .left
+          : (sidebarRef.current as HTMLDivElement).getBoundingClientRect()
+              .right - mouseMoveEvent.clientX
+      );
+    },
+    [isResizing]
+  );
+
+  useEffect(() => {
+    window.addEventListener('mousemove', resize);
+    window.addEventListener('mouseup', stopResizing);
+
+    return () => {
+      window.removeEventListener('mousemove', resize);
+      window.removeEventListener('mouseup', stopResizing);
+    };
+  }, [resize, stopResizing]);
+
   return (
-    <>
+    <Aside
+      display="flex"
+      maxWidth="30rem"
+      minWidth="12rem"
+      ref={sidebarRef}
+      width={sidebarWidth}
+      onMouseDown={(e) => e.preventDefault()}
+    >
       {side === 'right' && (
-        <Div cursor="ew-resize" width="2px" nHover={{ bg: '#0002' }} />
+        <Div
+          width="3px"
+          cursor="ew-resize"
+          nHover={{ bg: '#0002' }}
+          onMouseDown={startResizing}
+        />
       )}
-      <Aside
-        bg="#F6F6F6"
-        width="20rem"
+      <Div
+        bg="#F7F2FF"
+        width="100%"
         display="flex"
         overflow="auto"
-        minWidth="12rem"
-        maxWidth="30rem"
-        resize="horizontal"
         flexDirection="column"
       >
         {children}
-      </Aside>
+      </Div>
       {side === 'left' && (
-        <Div cursor="ew-resize" width="2px" nHover={{ bg: '#0002' }} />
+        <Div
+          width="3px"
+          cursor="ew-resize"
+          nHover={{ bg: '#0002' }}
+          onMouseDown={startResizing}
+        />
       )}
-    </>
+    </Aside>
   );
 };
 

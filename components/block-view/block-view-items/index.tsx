@@ -16,7 +16,7 @@ const BlockViewItems: FC = () => (
       <BlockViewItemsTitle />
       <BlockViewItemsSearch />
     </Div>
-    {Array.from({ length: 15 }, () => (
+    {Array.from({ length: 10 }, () => (
       <BlockViewItemsAccordion
         title="Logic"
         key={unikey()}
