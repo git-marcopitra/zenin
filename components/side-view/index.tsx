@@ -11,6 +11,7 @@ import {
 import { SideViewProps } from './side-view.types';
 
 const SideView: FC<PropsWithChildren<SideViewProps>> = ({ side, children }) => {
+  const storageKey = `sidebar-${side}.zenin.storage.v1`;
   const sidebarRef = useRef<AsideElementProps>(null);
   const [isResizing, setIsResizing] = useState(false);
   const [sidebarWidth, setSidebarWidth] = useState(268);
@@ -19,18 +20,24 @@ const SideView: FC<PropsWithChildren<SideViewProps>> = ({ side, children }) => {
 
   const stopResizing = useCallback(() => setIsResizing(false), []);
 
+  useEffect(() => {
+    setSidebarWidth(Number(localStorage.getItem(storageKey)));
+  }, []);
+
   const resize = useCallback(
     (mouseMoveEvent: MouseEvent) => {
       if (!isResizing || !sidebarRef.current) return;
 
-      setSidebarWidth(
+      const width =
         side === 'left'
           ? mouseMoveEvent.clientX -
-              (sidebarRef.current as HTMLDivElement).getBoundingClientRect()
-                .left
+            (sidebarRef.current as HTMLDivElement).getBoundingClientRect().left
           : (sidebarRef.current as HTMLDivElement).getBoundingClientRect()
-              .right - mouseMoveEvent.clientX
-      );
+              .right - mouseMoveEvent.clientX;
+
+      setSidebarWidth(width);
+
+      localStorage.setItem(storageKey, String(width));
     },
     [isResizing]
   );
