@@ -24,9 +24,9 @@ export const GlobalStyles = css`
 
   button {
     all: unset;
-    color: #3a72b4;
+    color: #a788cf;
     cursor: pointer;
-    background: #b3d6ff;
+    background: #e4cfff;
   }
 
   input {
