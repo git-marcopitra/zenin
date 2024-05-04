@@ -5,9 +5,9 @@ import unikey from 'unikey';
 import OptionMenu from '@/components/option-menu';
 import { LogoSVG } from '@/components/svg';
 
+import Search from '../../search';
 import SideView from '../../side-view';
 import BlockViewItemsAccordion from './block-view-items-accordion';
-import BlockViewItemsSearch from './block-view-items-search';
 import BlockViewItemsTitle from './block-view-items-title';
 
 const BlockViewItems: FC = () => (
@@ -24,7 +24,7 @@ const BlockViewItems: FC = () => (
     </Div>
     <Div px="2rem" mb="2rem">
       <BlockViewItemsTitle />
-      <BlockViewItemsSearch />
+      <Search />
     </Div>
     {Array.from({ length: 10 }, () => (
       <BlockViewItemsAccordion

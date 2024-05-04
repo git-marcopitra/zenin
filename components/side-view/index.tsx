@@ -3,6 +3,7 @@ import { FC, PropsWithChildren } from 'react';
 
 import { useResizeWidth } from './side-view.hooks';
 import { SideViewProps } from './side-view.types';
+import SideViewResizer from './side-view-resizer';
 
 const SideView: FC<PropsWithChildren<SideViewProps>> = ({ side, children }) => {
   const { ref, width, resizing } = useResizeWidth(side);
@@ -16,14 +17,7 @@ const SideView: FC<PropsWithChildren<SideViewProps>> = ({ side, children }) => {
       minWidth="15rem"
       onMouseDown={(e) => e.preventDefault()}
     >
-      {side === 'right' && (
-        <Div
-          width="3px"
-          cursor="ew-resize"
-          onMouseDown={resizing}
-          nHover={{ bg: '#0002' }}
-        />
-      )}
+      {side === 'right' && <SideViewResizer resizing={resizing} />}
       <Div
         bg="#F7F2FF"
         width="100%"
@@ -33,14 +27,7 @@ const SideView: FC<PropsWithChildren<SideViewProps>> = ({ side, children }) => {
       >
         {children}
       </Div>
-      {side === 'left' && (
-        <Div
-          width="3px"
-          cursor="ew-resize"
-          onMouseDown={resizing}
-          nHover={{ bg: '#0002' }}
-        />
-      )}
+      {side === 'left' && <SideViewResizer resizing={resizing} />}
     </Aside>
   );
 };
