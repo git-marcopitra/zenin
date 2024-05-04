@@ -1,8 +1,10 @@
 import { AsideElementProps } from '@stylin.js/elements';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { getStorageKey } from '@/utils';
+
 export const useResizeWidth = (side: 'left' | 'right') => {
-  const storageKey = `sidebar-${side}.zenin.storage.v1`;
+  const storageKey = getStorageKey('side', side);
   const ref = useRef<AsideElementProps>(null);
   const [isResizing, setIsResizing] = useState(false);
   const [width, setWidth] = useState(268);
